@@ -114,11 +114,22 @@ namespace ConsoleApp2
                 Console.WriteLine("please enter user id to display it's itmes");
                 string userId = Console.ReadLine();
 
-                var itemList = shoppingCart.SingleOrDefault(x => x.userId == userId);
-
-                if (itemList != null)
+                //var itemList = shoppingCart.SingleOrDefault(x => x.userId == userId);
+                List<Item> desiredShoppingCart = new List<Item>();
+                bool flag = false;
+                for(int i=0;i<shoppingCart.Capacity;i++)
                 {
-                    foreach (var item in itemList.userItems)
+                    if(shoppingCart[i].userId==userId)
+                    {
+                        flag = true;
+                        desiredShoppingCart = shoppingCart[i].userItems;
+                        break;
+                    }
+                }
+
+                if (flag != false)
+                {
+                    foreach (var item in desiredShoppingCart)
                     {
                         Console.WriteLine("id: " + item.id + " name: " + item.name + " quantity: " + item.quantity);
                     }
